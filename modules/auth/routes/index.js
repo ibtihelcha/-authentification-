@@ -3,9 +3,11 @@ const authrouter = express.Router();
 const createfullname = require("../middlewares/createfullname");
 const createuser = require("../controllers/registeruser");
 const hashpass = require("../middlewares/crypt");
-const decrypte = require("../../auth/controllers/decrypt");
 const login = require("../controllers/loginuser");
-authrouter.get("/decrypt", decrypte);
+const authmiddelware = require("../middlewares/authmiddelware");
+const myprofile = require("../controllers/getmyprofile");
 authrouter.post("/login", login);
 authrouter.post("/sign_up", createfullname, hashpass, createuser);
+authrouter.get("/profile/me",authmiddelware,myprofile);
+
 module.exports = authrouter;
